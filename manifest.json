@@ -1,0 +1,21 @@
+{
+    "name": "YouTube Music",
+    "short_name": "YT Music",
+    "start_url": "https://music.youtube.com",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#FF0000",
+    "icons": [
+      {
+        "src": "https://www.gstatic.com/youtube/img/2x_2014/android-youtube-32.png",
+        "sizes": "32x32",
+        "type": "image/png"
+      },
+      {
+        "src": "https://www.gstatic.com/youtube/img/2x_2014/android-youtube-192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      }
+    ]
+  }
+  
