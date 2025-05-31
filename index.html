@@ -3,11 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#FF0000" />
     <title>YouTube Music PWA</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background: black;
+        color: white;
+        text-align: center;
+        flex-direction: column;
+      }
+    </style>
   </head>
   <body>
+    <h1>Launching YouTube Music...</h1>
+    <p>Tap <strong>"Add to Home screen"</strong> in the menu to install.</p>
+
     <script>
-      window.location.href = "https://music.youtube.com";
+      setTimeout(() => {
+        window.location.href = "https://music.youtube.com";
+      }, 4000); // Wait 4 seconds before redirecting
     </script>
   </body>
 </html>
+   
