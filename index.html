@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="manifest" href="manifest.json" />
     <meta name="theme-color" content="#FF0000" />
     <title>YouTube Music PWA</title>
@@ -17,17 +18,62 @@
         text-align: center;
         flex-direction: column;
       }
+
+      #installBtn {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #FF0000;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        display: none;
+      }
     </style>
   </head>
   <body>
     <h1>Launching YouTube Music...</h1>
-    <p>Tap <strong>"Add to Home screen"</strong> in the menu to install.</p>
+    <p>Or click below to install the app manually.</p>
+    <button id="installBtn">Install App</button>
 
     <script>
+      let deferredPrompt;
+      const installBtn = document.getElementById('installBtn');
+
+      // Listen for the beforeinstallprompt event
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        installBtn.style.display = 'block';
+      });
+
+      installBtn.addEventListener('click', () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+              console.log('User accepted the install prompt');
+            } else {
+              console.log('User dismissed the install prompt');
+            }
+            deferredPrompt = null;
+            installBtn.style.display = 'none';
+          });
+        }
+      });
+
+      // Redirect after 4 seconds
       setTimeout(() => {
         window.location.href = "https://music.youtube.com";
-      }, 4000); // Wait 4 seconds before redirecting
+      }, 4000);
+
+      // Register service worker
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(reg => console.log('Service Worker registered', reg))
+          .catch(err => console.error('Service Worker registration failed:', err));
+      }
     </script>
   </body>
 </html>
-   
